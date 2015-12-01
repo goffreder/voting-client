@@ -1,22 +1,26 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import shouldPureComponentUpdate from 'react-pure-render/function';
 
-export default React.createClass({
-    mixins: [PureRenderMixin],
+export default class Vote extends React.Component {
+    constructor() {
+        super()
+    }
+
+    shouldComponentUpdate = shouldPureComponentUpdate
 
     getPair() {
         return this.props.pair || [];
-    },
+    }
 
     isDisabled() {
         return !!this.props.hasVoted;
-    },
+    }
 
     hasVotedFor(entry) {
         return this.props.hasVoted === entry;
-    },
+    }
 
     render() {
         return (
@@ -45,4 +49,4 @@ export default React.createClass({
             </div>
         );
     }
-});
+}

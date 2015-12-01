@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import shouldPureComponentUpdate from 'react-pure-render/function';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../action_creators';
@@ -8,12 +8,16 @@ import Winner from './Winner';
 
 export const VOTE_WIDTH_PERCENT = 8;
 
-export const Results = React.createClass({
-    mixins: [PureRenderMixin],
+export class Results extends React.Component {
+    constructor() {
+        super()
+    }
+
+    shouldComponentUpdate = shouldPureComponentUpdate
 
     getPair() {
         return this.props.pair || [];
-    },
+    }
 
     getVotes(entry) {
         if (this.props.tally && this.props.tally.has(entry)) {
@@ -21,11 +25,11 @@ export const Results = React.createClass({
         }
 
         return 0;
-    },
+    }
 
     getVotesBlockWidth(entry) {
         return (this.getVotes(entry) * VOTE_WIDTH_PERCENT) + '%';
-    },
+    }
 
     render() {
         return this.props.winner
@@ -55,7 +59,7 @@ export const Results = React.createClass({
                 </div>
             );
     }
-});
+}
 
 function mapStateToProps(state) {
     return {

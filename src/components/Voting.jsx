@@ -1,5 +1,5 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import shouldPureComponentUpdate from 'react-pure-render/function';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../action_creators';
@@ -7,8 +7,12 @@ import * as actionCreators from '../action_creators';
 import Winner from './Winner';
 import Vote from './Vote';
 
-export const Voting = React.createClass({
-    mixins: [PureRenderMixin],
+export class Voting extends React.Component {
+    constructor() {
+        super()
+    }
+
+    shouldComponentUpdate = shouldPureComponentUpdate
 
     render() {
         return (
@@ -21,7 +25,7 @@ export const Voting = React.createClass({
             </div>
         );
     }
-});
+}
 
 function mapStateToProps(state) {
     return {
